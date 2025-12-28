@@ -168,13 +168,22 @@ body {
         margin: 0;
     }
     .historical-dates {
-        top: 9%;
+        position: absolute;
+        top: 9% !important;
+        width: 100%;
+        height: auto;
+        left: 0;
+        margin: 0;
+        z-index: 10;
     
         div:first-child {
             display: none;
         }
         div:last-child {
             font-size: 6.7vw;
+            width: 100%;
+            margin-left: 6%;
+            height: auto;
         }
     }
     .vertical-line {
