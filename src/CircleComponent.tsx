@@ -90,7 +90,7 @@ type TooltipProps = {
 };
 
 function Tooltip({ activeIndex }: TooltipProps) {
-    const tooltip: string[] = ['Театр', 'Кино', 'Литература', 'Театр', 'Кино', 'Наука'];
+    const tooltip: string[] = ['Театр', 'Кино', 'Литература', 'Музыка', 'Кино', 'Наука'];
     const [visible, setVisible] = useState(true);
     const [displayIndex, setDisplayIndex] = useState(activeIndex);
 

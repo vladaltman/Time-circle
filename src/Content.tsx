@@ -12,7 +12,7 @@ export default function Content() {
         [1999, 2004], 
         [1987, 1991], 
         [1992, 1997], 
-        [1999, 2004], 
+        [2008, 2013], 
         [1987, 1991],
         [2015, 2022]
     ];
@@ -67,14 +67,12 @@ export default function Content() {
                 <div>{String(sectionIndex + 1).padStart(2, "0")}/06</div>
                 <div>
                     <span
-                        onClick={() => sectionIndex > 0 && circleRef.current?.goToPrev()}
-                        className={sectionIndex === 0 ? "disabled" : ""}
+                        onClick={() => circleRef.current?.goToPrev()}
                     >
                         ❮
                     </span>
                     <span
-                        onClick={() => sectionIndex < sectionYearRanges.length - 1 && circleRef.current?.goToNext()}
-                        className={sectionIndex === sectionYearRanges.length - 1 ? "disabled" : ""}
+                        onClick={() => circleRef.current?.goToNext()}
                     >
                         ❯
                     </span>

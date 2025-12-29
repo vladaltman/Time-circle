@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Mousewheel, Navigation } from 'swiper/modules';
+import type { Swiper as SwiperType } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/mousewheel';
 import 'swiper/css/navigation';
@@ -15,6 +16,14 @@ export default function SliderComponent({ sectionIndex }: SliderComponentProps) 
     const events = textEvents[sectionIndex] || [];
     const wrapperRef = useRef<HTMLDivElement>(null);
     const rafRef = useRef<number | null>(null);
+    const swiperRef = useRef<SwiperType | null>(null);
+
+    useEffect(() => {
+        // Сброс слайдера на первый слайд при смене секции
+        if (swiperRef.current) {
+            swiperRef.current.slideTo(0, 0);
+        }
+    }, [sectionIndex]);
 
     useEffect(() => {
         if (window.innerWidth > 399) return;
@@ -63,6 +72,9 @@ export default function SliderComponent({ sectionIndex }: SliderComponentProps) 
                 mousewheel={{ forceToAxis: true }}
                 navigation={{ nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }}
                 className="slider"
+                onSwiper={(swiper) => {
+                    swiperRef.current = swiper;
+                }}
             >
                 {events.map(({ year, text }) => (
                     <SwiperSlide key={year} className="slide">
