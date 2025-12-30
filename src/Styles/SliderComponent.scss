@@ -42,14 +42,14 @@
         div:first-child {
             color: rgb(68, 127, 239);
             height: 20%;
-            margin-bottom: .6vw;
-            font-size: 1.1vw;
+            margin-bottom: clamp(5px, 0.6vw, 10px);
+            font-size: clamp(0.9rem, 1.1vw, 1.3rem);
             font-family: 'Bebas Neue', sans-serif;
             letter-spacing: 1px;
         }
     
         div:last-child {
-            font-size: .9vw;
+            font-size: clamp(0.8rem, 0.9vw, 1.1rem);
             color: rgb(66, 86, 122);
             height: 70%;
             line-height: 1.5;
@@ -61,8 +61,8 @@
 .swiper-button-next {
     color: rgb(68, 127, 239);
     transform: translateY(-50%);
-    width: 2vw;
-    height: 2vw;
+    width: clamp(30px, 2vw, 40px);
+    height: clamp(30px, 2vw, 40px);
     background: white;
     border-radius: 50%;
     display: flex;
@@ -70,10 +70,26 @@
     align-items: center;
     top: 70%;
     box-shadow: 0 0 7px rgba(10, 46, 114, 0.118);
-    font-size: .9vw;
+    font-size: clamp(0.8rem, 0.9vw, 1.1rem);
+    transition: all 0.2s ease;
+    cursor: pointer;
 
     &::after {
       content: none;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+        &:hover {
+            background-color: rgba(68, 127, 239, 0.1);
+            box-shadow: 0 0 10px rgba(10, 46, 114, 0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+    }
+
+    &:active {
+        background-color: rgba(68, 127, 239, 0.2);
+        transform: translateY(-50%) scale(0.95);
+        transition: all 0.1s ease;
     }
 }
 
@@ -89,10 +105,73 @@
     display: none;
 }
 
+// Планшеты (768px - 1023px)
+@media (min-width: 768px) and (max-width: 1023px) {
+    .slider-wrapper {
+        bottom: 8%;
+        width: 88%;
+        margin-left: 6%;
+    }
+
+    .slider {
+        .event {
+            max-width: 280px;
+
+            div:first-child {
+                font-size: clamp(1rem, 1.5vw, 1.3rem);
+                margin-bottom: 0.8vw;
+            }
+
+            div:last-child {
+                font-size: clamp(0.85rem, 1.2vw, 1rem);
+            }
+        }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        width: clamp(35px, 2.5vw, 40px);
+        height: clamp(35px, 2.5vw, 40px);
+        font-size: clamp(0.8rem, 1.2vw, 1rem);
+    }
+}
+
+// Большие мобильные (400px - 767px)
+@media (min-width: 400px) and (max-width: 767px) {
+    .slider-wrapper {
+        top: 55%;
+        bottom: auto;
+        width: 92%;
+        margin-left: 4%;
+    }
+
+    .slider {
+        .event {
+            max-width: 250px;
+
+            div:first-child {
+                font-size: clamp(0.9rem, 4.5vw, 1.2rem);
+                margin-bottom: 2.5vw;
+            }
+
+            div:last-child {
+                font-size: clamp(0.8rem, 4vw, 1rem);
+            }
+        }
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        display: none;
+    }
+}
+
+// Маленькие мобильные (до 399px)
 @media (max-width: 399px) {
     .slider-wrapper {
-        bottom: 23%;
-        width: 94%;
+        top: 55%;
+        bottom: auto;
+        width: 93%;
         height: auto;
         margin-left: 6%;
     }
@@ -102,13 +181,13 @@
       
             div:first-child {
                 height: 20%;
-                margin-bottom: 3.7vw;
-                font-size: 5vw;
+                margin-bottom: clamp(10px, 3.7vw, 20px);
+                font-size: clamp(1rem, 5vw, 1.5rem);
                 letter-spacing: 1px;
             }
         
             div:last-child {
-                font-size: 4.4vw;
+                font-size: clamp(0.85rem, 4.4vw, 1.2rem);
                 height: 70%;
             }
         }

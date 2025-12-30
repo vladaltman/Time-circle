@@ -35,15 +35,78 @@
 }
 
 
-@keyframes gradientShift {
-    0% {
-        background-position: 0% 50%;
+@keyframes float1 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
     }
-    50% {
-        background-position: 100% 50%;
+    33% {
+        transform: translate(50px, -40px) scale(1.2);
+        opacity: 0.8;
     }
-    100% {
-        background-position: 0% 50%;
+    66% {
+        transform: translate(-30px, 30px) scale(0.9);
+        opacity: 0.5;
+    }
+}
+
+@keyframes float2 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.5;
+    }
+    33% {
+        transform: translate(-60px, 50px) scale(0.85);
+        opacity: 0.7;
+    }
+    66% {
+        transform: translate(40px, -30px) scale(1.15);
+        opacity: 0.6;
+    }
+}
+
+@keyframes float3 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.7;
+    }
+    33% {
+        transform: translate(30px, 40px) scale(1.1);
+        opacity: 0.5;
+    }
+    66% {
+        transform: translate(-50px, -50px) scale(0.95);
+        opacity: 0.8;
+    }
+}
+
+@keyframes float4 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.6;
+    }
+    33% {
+        transform: translate(-40px, -30px) scale(1.05);
+        opacity: 0.8;
+    }
+    66% {
+        transform: translate(50px, 40px) scale(0.9);
+        opacity: 0.5;
+    }
+}
+
+@keyframes float5 {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+        opacity: 0.5;
+    }
+    33% {
+        transform: translate(60px, 30px) scale(0.9);
+        opacity: 0.7;
+    }
+    66% {
+        transform: translate(-30px, -50px) scale(1.2);
+        opacity: 0.6;
     }
 }
 
@@ -51,21 +114,59 @@ body {
     margin: 0;
     padding: 0;
     font-family: 'PT Sans', sans-serif;
-    background: linear-gradient(
-        135deg,
-        #ffffff 0%,
-        #f3e5f5 20%,
-        #ffffff 40%,
-        #e1bee7 60%,
-        #ffffff 80%,
-        #f3e5f5 100%
-    );
-    background-size: 300% 300%;
-    background-attachment: fixed;
-    animation: gradientShift 20s ease infinite;
+    background: #ffffff;
     min-height: 100vh;
     user-select: none;
+    position: relative;
+    overflow-x: hidden;
+
+    &::before {
+        content: '';
+        position: fixed;
+        width: 600px;
+        height: 600px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 182, 193, 0.8) 0%, rgba(255, 182, 193, 0) 70%);
+        top: 10%;
+        left: 10%;
+        animation: float1 18s ease-in-out infinite;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(40px);
+    }
+
+    &::after {
+        content: '';
+        position: fixed;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(135, 206, 250, 0.7) 0%, rgba(135, 206, 250, 0) 70%);
+        bottom: 15%;
+        right: 15%;
+        animation: float2 22s ease-in-out infinite;
+        z-index: 0;
+        pointer-events: none;
+        filter: blur(40px);
+    }
 }
+
+body::before {
+    box-shadow: 
+        800px 400px 0 0 radial-gradient(circle, rgba(255, 105, 180, 0.7) 0%, rgba(255, 105, 180, 0) 70%),
+        -300px 600px 0 0 radial-gradient(circle, rgba(173, 216, 230, 0.8) 0%, rgba(173, 216, 230, 0) 70%),
+        1200px -200px 0 0 radial-gradient(circle, rgba(255, 192, 203, 0.6) 0%, rgba(255, 192, 203, 0) 70%),
+        -500px 200px 0 0 radial-gradient(circle, rgba(135, 206, 250, 0.7) 0%, rgba(135, 206, 250, 0) 70%),
+        1500px 800px 0 0 radial-gradient(circle, rgba(255, 182, 193, 0.6) 0%, rgba(255, 182, 193, 0) 70%);
+}
+
+body::after {
+    box-shadow: 
+        -600px -300px 0 0 radial-gradient(circle, rgba(255, 105, 180, 0.7) 0%, rgba(255, 105, 180, 0) 70%),
+        400px -500px 0 0 radial-gradient(circle, rgba(173, 216, 230, 0.8) 0%, rgba(173, 216, 230, 0) 70%),
+        -800px 300px 0 0 radial-gradient(circle, rgba(135, 206, 250, 0.6) 0%, rgba(135, 206, 250, 0) 70%);
+}
+
 .content {
     border: rgba(0, 0, 0, 0.07) thin solid;
     height: 100vh;
@@ -73,10 +174,81 @@ body {
     margin-left: 15.2%;
     margin-right: 7.8%;
     position: relative;
+    z-index: 1;
+}
+
+// Планшеты (768px - 1023px)
+@media (min-width: 768px) and (max-width: 1023px) {
+    .content {
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+    .historical-dates {
+        width: 35%;
+        font-size: clamp(1.5rem, 3vw, 2.5rem);
+    }
+
+    .numbers-dates {
+        font-size: clamp(40px, 8vw, 80px);
+    }
+
+    .circle-buttons {
+        width: 10%;
+        left: 3%;
+
+        div:first-child {
+            font-size: clamp(0.7rem, 1.2vw, 1rem);
+        }
+
+        div:last-child span {
+            width: clamp(35px, 3vw, 45px);
+            height: clamp(35px, 3vw, 45px);
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+        }
+    }
+}
+
+// Большие мобильные (400px - 767px)
+@media (min-width: 400px) and (max-width: 767px) {
+    .content {
+        width: 95%;
+        margin-left: 2.5%;
+        margin-right: 2.5%;
+    }
+
+    .historical-dates {
+        width: 40%;
+        top: 10%;
+        font-size: clamp(1.2rem, 4vw, 2rem);
+    }
+
+    .numbers-dates {
+        font-size: clamp(35px, 12vw, 60px);
+        top: 38%;
+    }
+
+    .circle-buttons {
+        width: 15%;
+        left: 4%;
+        top: 85%;
+
+        div:first-child {
+            font-size: clamp(0.6rem, 2.5vw, 0.9rem);
+        }
+
+        div:last-child span {
+            width: clamp(30px, 6vw, 40px);
+            height: clamp(30px, 6vw, 40px);
+            font-size: clamp(0.8rem, 2.5vw, 1.1rem);
+        }
+    }
 }
 .vertical-line, .horizontal-line {
     position: absolute;
     background-color: rgba(66, 86, 122, 0.1);
+    z-index: 6;
 }
 .vertical-line {
     top: 0;
@@ -110,7 +282,7 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        font-size: 2.7vw;
+        font-size: clamp(1.2rem, 2.7vw, 2.5rem);
         margin-left: 17%;
         color: rgb(66, 86, 122);
         font-weight: bolder;
@@ -133,6 +305,7 @@ body {
     transform: translateY(-50%);
     user-select: none;
     pointer-events: none;
+    z-index: 15;
 
     span:first-child {
         color: rgb(93, 95, 239);
@@ -152,7 +325,8 @@ body {
 
     div:first-child {
         color: rgb(66, 86, 122);
-        font-size: .8vw;
+        font-size: clamp(0.7rem, 0.8vw, 1rem);
+        margin-left: 0.5vw;
     }
     div:last-child {
         display: flex;
@@ -162,13 +336,13 @@ body {
         span {
             border-radius: 50%;
             border: rgba(66, 86, 122, 0.549) thin solid;
-            width: 2.4vw;
-            height: 2.4vw;
+            width: clamp(30px, 2.4vw, 45px);
+            height: clamp(30px, 2.4vw, 45px);
             aspect-ratio: 1/1;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1vw;
+            font-size: clamp(0.8rem, 1vw, 1.2rem);
             color: rgb(66, 86, 122);
             cursor: pointer;
             user-select: none;
@@ -199,6 +373,39 @@ body {
     display: none;
 }
 
+// Очень большие экраны (1440px+)
+@media (min-width: 1440px) {
+    .content {
+        width: 70%;
+        margin-left: 18%;
+        margin-right: 12%;
+    }
+
+    .historical-dates {
+        font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    }
+
+    .numbers-dates {
+        font-size: clamp(60px, 8vw, 120px);
+    }
+
+    .circle-buttons {
+        width: 6.5%;
+        left: 6%;
+
+        div:first-child {
+            font-size: clamp(0.75rem, 0.7vw, 0.9rem);
+        }
+
+        div:last-child span {
+            width: clamp(35px, 2.2vw, 42px);
+            height: clamp(35px, 2.2vw, 42px);
+            font-size: clamp(0.9rem, 0.95vw, 1.1rem);
+        }
+    }
+}
+
+// Маленькие мобильные (до 399px)
 @media (max-width: 399px) {
     .content {
         border: none;
@@ -219,7 +426,7 @@ body {
             display: none;
         }
         div:last-child {
-            font-size: 6.7vw;
+            font-size: clamp(1.5rem, 6.7vw, 2.5rem);
             width: 100%;
             margin-left: 6%;
             height: auto;
@@ -239,7 +446,7 @@ body {
         height: 20%;
         margin: 0;
         top: 36%;
-        font-size: 18vw;
+        font-size: clamp(3rem, 18vw, 8rem);
         justify-content: space-around;
 
         span:first-child {
@@ -257,15 +464,15 @@ body {
     
         div:first-child {
             color: rgb(66, 86, 122);
-            font-size: 4.8vw;
+            font-size: clamp(0.9rem, 4.8vw, 1.5rem);
         }
         div:last-child {
     
             span {
                 border: rgb(160, 170, 190) 1.6px solid;
-                width: 7.8vw;
-                height: 7.8vw;
-                font-size: 3.3vw;
+                width: clamp(35px, 7.8vw, 50px);
+                height: clamp(35px, 7.8vw, 50px);
+                font-size: clamp(0.9rem, 3.3vw, 1.3rem);
                 color: rgb(66, 86, 122);
                 font-weight: bold;
                 transition: all 0.2s ease;
@@ -299,8 +506,8 @@ body {
         width: 30%;
       
         .point {
-          width: 2vw;
-          height: 2vw;
+          width: clamp(6px, 2vw, 10px);
+          height: clamp(6px, 2vw, 10px);
           aspect-ratio: 1/1;
           border-radius: 50%;
           background-color: rgb(191, 197, 211);

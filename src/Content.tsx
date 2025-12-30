@@ -64,7 +64,7 @@ export default function Content() {
                 <span>{yearRange[1]}</span>
             </div>
             <div className="circle-buttons">
-                <div>{String(sectionIndex + 1).padStart(2, "0")}/06</div>
+                <div>{sectionIndex + 1}/6</div>
                 <div>
                     <span
                         onClick={() => circleRef.current?.goToPrev()}

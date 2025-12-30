@@ -1,26 +1,27 @@
 .circle-wrapper {
-    position: relative;
-    height: 50%;
+    position: absolute;
+    width: min(50%, 50vh);
     aspect-ratio: 1/1;
-    margin: 0 auto;
-    top: 20%;
+    left: 50%;
+    top: 45%;
+    transform: translate(-50%, -50%);
+    z-index: 25;
 }
   
 .circle {
     position: relative;
     width: 100%;
     height: 100%;
-    aspect-ratio: 1/1;
     border-radius: 50%;
     border: 2px solid rgba(66, 86, 122, 0.1);
     transform-origin: center center;
-    z-index: 9;
+    z-index: 25;
 }
 
 .dot {
     position: absolute;
-    width: .33vw;
-    height: .33vw;
+    width: clamp(6px, 0.5vw, 8px);
+    height: clamp(6px, 0.5vw, 8px);
     aspect-ratio: 1/1;
     background-color: rgb(66, 86, 122);
     border-radius: 50%;
@@ -31,12 +32,15 @@
     justify-content: center;
     color: white;
     font-weight: bold;
+    box-shadow: 0 0 4px rgba(66, 86, 122, 0.5);
+    z-index: 20;
   
     &:hover {
         width: 2.6vw;
         height: 2.6vw;
         background-color: rgb(244, 245, 249);
         border: rgba(66, 86, 122, 0.549) thin solid;
+        opacity: 0.7;
   
     .dot-label {
         display: block;
@@ -52,6 +56,8 @@
     height: 2.6vw;
     background-color: rgb(244, 245, 249);
     border: rgba(66, 86, 122, 0.549) thin solid;
+    z-index: 20;
+    opacity: 0.7;
   
     .dot-label {
         display: block;
@@ -68,14 +74,129 @@
 .tooltip {
     position: absolute;
     display: block;
-    font-size: 1.05vw;
+    font-size: clamp(0.9rem, 1.05vw, 1.2rem);
     font-weight: 600;
     color: rgb(66, 86, 122);
     user-select: none;
-    top: 4.3%;
-    left: 84%;
+    white-space: nowrap;
+    pointer-events: none;
+    top: 2%;
+    left: 88%;
+    z-index: 11;
 }
 
+// Очень большие экраны (1440px+)
+@media (min-width: 1440px) {
+    .circle-wrapper {
+        width: min(48%, 48vh);
+        top: 45%;
+    }
+
+    .dot {
+        width: clamp(5px, 0.3vw, 6px);
+        height: clamp(5px, 0.3vw, 6px);
+
+        &:hover {
+            width: clamp(40px, 2.5vw, 45px);
+            height: clamp(40px, 2.5vw, 45px);
+
+            .dot-label {
+                font-size: clamp(0.95rem, 1vw, 1.1rem);
+            }
+        }
+    }
+
+    .dot.active {
+        width: clamp(40px, 2.5vw, 45px);
+        height: clamp(40px, 2.5vw, 45px);
+
+        .dot-label {
+            font-size: clamp(0.95rem, 1vw, 1.1rem);
+        }
+    }
+
+    .tooltip {
+        font-size: clamp(1rem, 1.05vw, 1.15rem);
+        top: 1.5%;
+        left: 90%;
+    }
+}
+
+// Планшеты (768px - 1023px)
+@media (min-width: 768px) and (max-width: 1023px) {
+    .circle-wrapper {
+        width: min(55%, 45vh);
+        top: 45%;
+    }
+
+    .dot {
+        width: clamp(4px, 0.4vw, 6px);
+        height: clamp(4px, 0.4vw, 6px);
+
+        &:hover {
+            width: clamp(35px, 2.8vw, 40px);
+            height: clamp(35px, 2.8vw, 40px);
+
+            .dot-label {
+                font-size: clamp(0.85rem, 1.2vw, 1rem);
+            }
+        }
+    }
+
+    .dot.active {
+        width: clamp(35px, 2.8vw, 40px);
+        height: clamp(35px, 2.8vw, 40px);
+
+        .dot-label {
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
+        }
+    }
+
+    .tooltip {
+        font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+        top: 1%;
+        left: 88%;
+    }
+}
+
+// Большие мобильные (400px - 767px)
+@media (min-width: 400px) and (max-width: 767px) {
+    .circle-wrapper {
+        width: min(60%, 40vh);
+        top: 45%;
+    }
+
+    .dot {
+        width: clamp(5px, 1vw, 8px);
+        height: clamp(5px, 1vw, 8px);
+
+        &:hover {
+            width: clamp(30px, 6vw, 35px);
+            height: clamp(30px, 6vw, 35px);
+
+            .dot-label {
+                font-size: clamp(0.75rem, 3.5vw, 0.95rem);
+            }
+        }
+    }
+
+    .dot.active {
+        width: clamp(30px, 6vw, 35px);
+        height: clamp(30px, 6vw, 35px);
+
+        .dot-label {
+            font-size: clamp(0.75rem, 3.5vw, 0.95rem);
+        }
+    }
+
+    .tooltip {
+        font-size: clamp(0.8rem, 3.5vw, 1rem);
+        top: 0.5%;
+        left: 85%;
+    }
+}
+
+// Маленькие мобильные (до 399px)
 @media (max-width: 399px) {
     .circle-wrapper {
         display: none;
