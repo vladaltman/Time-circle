@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -7,6 +8,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     clean: true,
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -35,13 +37,26 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html',
+      inject: true,
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'public/icon.png',
+          to: 'icon.png',
+        },
+      ],
     }),
   ],
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.join(__dirname, 'dist'),
+      publicPath: '/',
+    },
     port: 3000,
     hot: true,
     open: true,
+    watchFiles: ['public/**/*'],
   },
   mode: 'development',
 };

@@ -8,7 +8,7 @@
     "build": "webpack --mode production"
   },
   "keywords": [],
-  "author": "",
+  "author": "vladaltman",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
